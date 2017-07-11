@@ -18,6 +18,7 @@ public class SngcMirTrim {
 	private String numCotisantPartenaire;
 	private String prenom;
 	private String codeAnomalie;
+	
 	public String getTypeEnregistrement() {
 		return typeEnregistrement;
 	}
@@ -65,5 +66,59 @@ public class SngcMirTrim {
 	}
 	public void setNombreUniteValide(int nombreUniteValide) {
 		this.nombreUniteValide = nombreUniteValide;
+	}
+	public String getCodeRegimeValide() {
+		return codeRegimeValide;
+	}
+	public void setCodeRegimeValide(String codeRegimeValide) {
+		this.codeRegimeValide = codeRegimeValide;
+	}
+	public String getNumOrganismeOrigineDeclarant() {
+		return numOrganismeOrigineDeclarant;
+	}
+	public void setNumOrganismeOrigineDeclarant(String numOrganismeOrigineDeclarant) {
+		this.numOrganismeOrigineDeclarant = numOrganismeOrigineDeclarant;
+	}
+	public int getDateOrigineDeclaration() {
+		return dateOrigineDeclaration;
+	}
+	public void setDateOrigineDeclaration(int dateOrigineDeclaration) {
+		this.dateOrigineDeclaration = dateOrigineDeclaration;
+	}
+	public String getTypeUnitesValidees() {
+		return typeUnitesValidees;
+	}
+	public void setTypeUnitesValidees(String typeUnitesValidees) {
+		this.typeUnitesValidees = typeUnitesValidees;
+	}
+	public String getTypeTitreEchange() {
+		return typeTitreEchange;
+	}
+	public void setTypeTitreEchange(String typeTitreEchange) {
+		this.typeTitreEchange = typeTitreEchange;
+	}
+	public String getCodeReponse() {
+		return codeReponse;
+	}
+	public void setCodeReponse(String codeReponse) {
+		this.codeReponse = codeReponse;
+	}
+	public String getNumCotisantPartenaire() {
+		return numCotisantPartenaire;
+	}
+	public void setNumCotisantPartenaire(String numCotisantPartenaire) {
+		this.numCotisantPartenaire = numCotisantPartenaire;
+	}
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+	public String getCodeAnomalie() {
+		return codeAnomalie;
+	}
+	public void setCodeAnomalie(String codeAnomalie) {
+		this.codeAnomalie = codeAnomalie;
 	}
 }
