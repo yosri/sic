@@ -1,4 +1,4 @@
-package testYAR.testSpringBatch.model;
+package testYAR.testSpringBatch.model.sngc;
 
 public class SngcDdf {                                                                                                     
     private String typeEnregistrement; // Long : 3
