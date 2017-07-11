@@ -23,7 +23,7 @@ public class MirProcessor implements ItemProcessor<SngcMirTrim, SngcMirTrim>
         	sngcMirOutput.setZoneTrimestresRegime(sngcMirInput.getZoneTrimestresRegime());
         }else if (!estTypeEnregistrementOK(sngcMirInput)) {
         	// log erreur :
-        	// - L’erreur « Anomalie de fichier aller »
+        	// - L’erreur « Anomalie de fichier aller SNGC »
         	// - Puis la ligne correspondante du fichier SNGC
         }else if (!estZoneTrimRegimeOK(sngcMirInput)) {
         	// log erreur :
