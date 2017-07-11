@@ -13,11 +13,12 @@ public class SngcMirTrim {
 	private String nomAssure;
 	private String codeFonction;
 	private String codeMaj;
+	private String annee;
 	private String codeNatureTrim;
-	private int nombreUniteValide;
+	private String nombreUniteValide;
 	private String codeRegimeValide;
 	private String numOrganismeOrigineDeclarant;
-	private int dateOrigineDeclaration;
+	private String dateOrigineDeclaration;
 	private String typeUnitesValidees;
 	private String typeTitreEchange;
 	private String codeReponse;
@@ -81,11 +82,11 @@ public class SngcMirTrim {
 		this.codeNatureTrim = codeNatureTrim;
 	}
 
-	public int getNombreUniteValide() {
+	public String getNombreUniteValide() {
 		return nombreUniteValide;
 	}
 
-	public void setNombreUniteValide(int nombreUniteValide) {
+	public void setNombreUniteValide(String nombreUniteValide) {
 		this.nombreUniteValide = nombreUniteValide;
 	}
 
@@ -105,11 +106,11 @@ public class SngcMirTrim {
 		this.numOrganismeOrigineDeclarant = numOrganismeOrigineDeclarant;
 	}
 
-	public int getDateOrigineDeclaration() {
+	public String getDateOrigineDeclaration() {
 		return dateOrigineDeclaration;
 	}
 
-	public void setDateOrigineDeclaration(int dateOrigineDeclaration) {
+	public void setDateOrigineDeclaration(String dateOrigineDeclaration) {
 		this.dateOrigineDeclaration = dateOrigineDeclaration;
 	}
 
@@ -159,5 +160,13 @@ public class SngcMirTrim {
 
 	public void setCodeAnomalie(String codeAnomalie) {
 		this.codeAnomalie = codeAnomalie;
+	}
+
+	public String getAnnee() {
+		return annee;
+	}
+
+	public void setAnnee(String annee) {
+		this.annee = annee;
 	}
 }
