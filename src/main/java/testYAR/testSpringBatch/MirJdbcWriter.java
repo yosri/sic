@@ -9,6 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import testYAR.testSpringBatch.model.bd.TrimestreHorsCipav;
 
+/**
+ * ItemWriter
+ * 
+ * @author yarrami
+ *
+ */
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class MirJdbcWriter implements ItemWriter<TrimestreHorsCipav> {
 
