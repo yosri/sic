@@ -13,7 +13,8 @@
     </bean>
  
     <!-- ItemReader which reads data from XML file -->
-    <bean id="mirReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+    <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" />
+    <!-- <bean id="mirReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
 	    <property name="resource" value="file:#{jobParameters['input.file.name']}" />
 	    <property name="lineMapper">
 	        <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
@@ -30,7 +31,7 @@
 	            </property>
 	        </bean>
 	    </property>
-	</bean>
+	</bean> -->
  
     <!-- ItemWriter which writes data to database -->
     <bean id="mirJdbcWriter" class="testYAR.testSpringBatch.MirJdbcWriter" >
