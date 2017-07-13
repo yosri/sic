@@ -14,9 +14,9 @@
  
     <!-- ItemReader which reads data from XML file -->
     <!-- <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" /> -->
-    	<!-- <property name="resource" value="file:#{jobParameters['inputFileName']}" />
-    </bean> -->
-    <bean id="mirReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+    <!-- <bean id="mirReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step"> -->
+    <bean id="skippedLinesCallback" class="testYAR.testSpringBatch.SkippableItemReader" />
+    <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" scope="step">
 	    <property name="resource" value="file:#{jobParameters['inputFileName']}" />
 	    <property name="lineMapper">
 	        <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
@@ -33,6 +33,8 @@
 	            </property>
 	        </bean>
 	    </property>
+	    <property name="linesToSkip" value="1" />
+	    <property name="skippedLinesCallback" ref="skippedLinesCallback" />
 	</bean>
  
     <!-- ItemWriter which writes data to database -->
@@ -52,13 +54,13 @@
     <!-- Step will need a transaction manager -->
     <bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
  
- 	<bean id="listner" class="testYAR.testSpringBatch.SngcItemReaderListener" />
+ 	<bean id="readerlistner" class="testYAR.testSpringBatch.SngcItemReaderListener" />
     <!-- Actual Job -->
-   <job id="importMir" xmlns="http://www.springframework.org/schema/batch">
+    <job id="importMir" xmlns="http://www.springframework.org/schema/batch">
 	    <step id="readWriteMir">
 	        <tasklet>
 			    <listeners>
-					<listener ref="listner" />
+					<listener ref="readerlistner" />
 				</listeners>
 	            <chunk reader="mirReader" writer="mirJdbcWriter" processor="mirProcessor" commit-interval="600" skip-limit="100000000">
 		            <skippable-exception-classes>
