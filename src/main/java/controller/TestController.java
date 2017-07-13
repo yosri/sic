@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import testYAR.testSpringBatch.model.SngcMirTrim;
+import testYAR.testSpringBatch.model.sngc.SngcMirTrim;
 
 @Path("/test")
 @Produces("application/json")
