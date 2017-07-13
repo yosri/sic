@@ -15,12 +15,6 @@
 	</properties>
 
 	<dependencies>
-		<!-- Spring core -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>2.5.5</version>
-		</dependency>
 		<!-- Sring Batch -->
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
@@ -32,13 +26,20 @@
 			<artifactId>spring-batch-infrastructure</artifactId>
 			<version>3.0.7.RELEASE</version>
 		</dependency>
+		<!-- Spring core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>2.5.5</version>
+		</dependency>
 		<!-- Spring Data JPA -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+		<!-- TODO [SFE] : Probleme avec cette dependence
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-		    <version>1.11.4.RELEASE</version>
-		</dependency>
+			<version>1.11.4.RELEASE</version>
+		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -56,6 +57,12 @@
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.19.4</version>
+		</dependency>
+		<!-- LOGGER -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
 		</dependency>
 		<!-- TU -->
 		<dependency>
