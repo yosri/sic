@@ -34,7 +34,7 @@
 		</dependency>
 		<!-- Spring Data JPA -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
-		<!-- TODO [SFE] : Probleme avec cette dependence
+		<!-- TODO [SFE] : Probleme avec cette dependence 
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
