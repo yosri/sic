@@ -34,12 +34,11 @@
 		</dependency>
 		<!-- Spring Data JPA -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
-		<!-- TODO [SFE] : Probleme avec cette dependence
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 		    <version>1.11.4.RELEASE</version>
-		</dependency> -->
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -57,6 +56,12 @@
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.19.4</version>
+		</dependency>
+		<!-- LOGGER -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.1</version>
 		</dependency>
 		<!-- TU -->
 		<dependency>
