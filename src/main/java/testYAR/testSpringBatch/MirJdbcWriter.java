@@ -7,19 +7,25 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import testYAR.testSpringBatch.model.SngcMirTrim;
+import testYAR.testSpringBatch.model.bd.TrimestreHorsCipav;
 
+/**
+ * ItemWriter
+ * 
+ * @author yarrami
+ *
+ */
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-public class MirJdbcWriter implements ItemWriter<SngcMirTrim> {
+public class MirJdbcWriter implements ItemWriter<TrimestreHorsCipav> {
 
 	private JdbcTemplate jdbcTemplate;
-	private static final String REQUEST_INSERT_MIR = "insert into MIR (type_enregistrement, zone_id_assure, zone_partenaire, zone_trimestres_regime, zone_anomalies_retours) values (?,?,?,?,?)";
+	private static final String REQUEST_INSERT = "insert into trimestre_hors_cipav (numCarriere, annee, natureHorsCipav, regimeExterne, typeTrimestre, nombreTrimestre, organismeDeclarant, dateDeclaration) values (?,?,?,?,?,?,?,?)";
 
-	public void write(List<? extends SngcMirTrim> items) throws Exception {
-		for (SngcMirTrim sngcMir : items) {
-			final Object object[] = { sngcMir.getTypeEnregistrement(), sngcMir.getZoneIdAssure(), sngcMir.getZonePartenaire(),
-					sngcMir.getZoneTrimestresRegime(), sngcMir.getZoneAnomaliesRetours() };
-			jdbcTemplate.update(REQUEST_INSERT_MIR, object);
+	public void write(List<? extends TrimestreHorsCipav> items) throws Exception {
+		for (TrimestreHorsCipav trimestre : items) {
+			final Object object[] = { trimestre.getNumCarriere(), trimestre.getAnnee(), trimestre.getNatureHorsCipav(), trimestre.getRegimeExterne(), trimestre.getTypeTrimestre(),
+					trimestre.getNombreTrimestre(), trimestre.getOrganismeDeclarant(), trimestre.getDateDeclaration() };
+			jdbcTemplate.update(REQUEST_INSERT, object);
 		}
 	}
 
