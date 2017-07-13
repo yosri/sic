@@ -14,8 +14,10 @@
  
     <!-- ItemReader which reads data from XML file -->
     <!-- <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" /> -->
+    	<!-- <property name="resource" value="file:#{jobParameters['inputFileName']}" />
+    </bean> -->
     <bean id="mirReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
-	    <property name="resource" value="file:#{jobParameters['input.file.name']}" />
+	    <property name="resource" value="file:#{jobParameters['inputFileName']}" />
 	    <property name="lineMapper">
 	        <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
 	            <property name="lineTokenizer">
@@ -50,13 +52,20 @@
     <!-- Step will need a transaction manager -->
     <bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
  
+ 	<bean id="listner" class="testYAR.testSpringBatch.SngcItemReaderListener" />
     <!-- Actual Job -->
    <job id="importMir" xmlns="http://www.springframework.org/schema/batch">
 	    <step id="readWriteMir">
 	        <tasklet>
-	            <chunk reader="mirReader" writer="mirJdbcWriter" processor="mirProcessor" commit-interval="600" />
+			    <listeners>
+					<listener ref="listner" />
+				</listeners>
+	            <chunk reader="mirReader" writer="mirJdbcWriter" processor="mirProcessor" commit-interval="600" skip-limit="100000000">
+		            <skippable-exception-classes>
+			            <batch:include class="org.springframework.batch.item.file.FlatFileParseException"/>
+			        </skippable-exception-classes>
+		        </chunk>
 	        </tasklet>
 	    </step>
-	</job>
- 
+	</job
 </beans>

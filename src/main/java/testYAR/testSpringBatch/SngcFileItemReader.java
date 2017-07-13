@@ -3,7 +3,6 @@ package testYAR.testSpringBatch;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
@@ -26,7 +25,8 @@ import org.springframework.core.io.ClassPathResource;
 
 import testYAR.testSpringBatch.model.sngc.SngcMirTrim;
 
-@Scope(value = "step")
+//@Component("foo-reader")
+@Scope("step")
 public class SngcFileItemReader implements ItemStreamReader<SngcMirTrim> {
 
 	private static final String BODY = "DDF*";
@@ -34,16 +34,21 @@ public class SngcFileItemReader implements ItemStreamReader<SngcMirTrim> {
 	// private static final Logger logger = LoggerFactory.getLogger(OrderReaderStep2.class);
 	private SingleItemPeekableItemReader<FieldSet> delegate;
 
-	@Value("#{jobParameters['input.file.name']}")
-	private String fileName;
+	// @Value("#{jobParameters['inputFileName']}")
+	private String inputFileName;
+
+	@Value("#{jobParameters['inputFileName']}")
+	public void setInputFileName(final String name) {
+		this.inputFileName = name;
+	}
 
 	@BeforeStep
-	public void beforeStep(StepExecution stepExecution) {
+	public void beforeStep() {
 
-		System.out.println("fileName : " + fileName);
+		// System.out.println("fileName : " + inputFileName);
 
 		FlatFileItemReader fileReader = new FlatFileItemReader<>();
-		fileReader.setResource(new ClassPathResource(fileName));
+		fileReader.setResource(new ClassPathResource("D:\\Travail\\Dev\\Projets\\testSpringBatch2\\executions\\mir.txt"));
 
 		final DefaultLineMapper<FieldSet> defaultLineMapper = new DefaultLineMapper<>();
 		final PatternMatchingCompositeLineTokenizer orderFileTokenizer = new PatternMatchingCompositeLineTokenizer();

@@ -15,8 +15,7 @@ public class BatchMir {
 		JobLauncher jobLauncher = (JobLauncher) cpt.getBean("jobLauncher");
 		Job job = (Job) cpt.getBean("importMir");
 
-		JobParameters parameter = new JobParametersBuilder().addDate("date", new Date()).addString("input.file.name", args[0])
-				.toJobParameters();
+		JobParameters parameter = new JobParametersBuilder().addDate("date", new Date()).addString("inputFileName", args[0]).toJobParameters();
 		// JobParameters parameter = new JobParametersBuilder().addDate("date", new Date()).addString("input.file",
 		// "input/personnes.txt").toJobParameters();
 		// JobParameters parameter = new JobParametersBuilder().addDate("date", new Date()).toJobParameters();
