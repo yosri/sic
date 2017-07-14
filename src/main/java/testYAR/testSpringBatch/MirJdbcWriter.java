@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import common.Constantes;
 import testYAR.testSpringBatch.model.bd.TrimestreHorsCipav;
 
 /**
@@ -26,6 +27,7 @@ public class MirJdbcWriter implements ItemWriter<TrimestreHorsCipav> {
 			final Object object[] = { trimestre.getNumCarriere(), trimestre.getAnnee(), trimestre.getNatureHorsCipav(), trimestre.getRegimeExterne(), trimestre.getTypeTrimestre(),
 					trimestre.getNombreTrimestre(), trimestre.getOrganismeDeclarant(), trimestre.getDateDeclaration() };
 			jdbcTemplate.update(REQUEST_INSERT, object);
+			Constantes.OKlog.info(trimestre.getLigneTotal());
 		}
 	}
 

@@ -4,7 +4,7 @@ import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.item.file.FlatFileParseException;
 
 import common.Constantes;
-import testYAR.testSpringBatch.model.sngc.SngcMirTrim;
+import testYAR.testSpringBatch.model.sngc.Sngc;
 
 /**
  * SngcItemReaderListener : pour la gestion des lignes qui ne mappe pas le model de donnees
@@ -12,7 +12,7 @@ import testYAR.testSpringBatch.model.sngc.SngcMirTrim;
  * @author yarrami
  *
  */
-public class SngcItemReaderListener implements ItemReadListener<SngcMirTrim> {
+public class SngcItemReaderListener implements ItemReadListener<Sngc> {
 
 	@Override
 	public void beforeRead() {
@@ -20,13 +20,14 @@ public class SngcItemReaderListener implements ItemReadListener<SngcMirTrim> {
 	}
 
 	@Override
-	public void afterRead(SngcMirTrim item) {
+	public void afterRead(Sngc sngc) {
 		// Vide
 	}
 
 	@Override
 	public void onReadError(Exception ex) {
-		FlatFileParseException exception = (FlatFileParseException) ex;
-		Constantes.KOlog.info("Erreur à la ligne : " + exception.getInput());
+		if (ex instanceof FlatFileParseException) {
+			Constantes.KOlog.info("Erreur à la ligne : " + ((FlatFileParseException) ex).getInput());
+		}
 	}
 }

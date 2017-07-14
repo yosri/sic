@@ -19,6 +19,7 @@ public class TrimestreHorsCipav {
 	private Boolean priseCompteCalculDepartAnticipe;
 	private String organismeDeclarant;
 	private Calendar dateDeclaration;
+	private String ligneTotal;
 
 	public String getNumCarriere() {
 		return numCarriere;
@@ -98,5 +99,13 @@ public class TrimestreHorsCipav {
 
 	public void setDateDeclaration(Calendar dateDeclaration) {
 		this.dateDeclaration = dateDeclaration;
+	}
+
+	public String getLigneTotal() {
+		return ligneTotal;
+	}
+
+	public void setLigneTotal(String ligneTotal) {
+		this.ligneTotal = ligneTotal;
 	}
 }

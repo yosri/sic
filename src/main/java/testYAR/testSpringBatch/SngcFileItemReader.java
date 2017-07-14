@@ -11,7 +11,7 @@ import testYAR.testSpringBatch.exception.HeaderErrorException;
  *
  * @param <SngcMirTrim>
  */
-public class SngcFileItemReader<SngcMirTrim> extends FlatFileItemReader<SngcMirTrim> {
+public class SngcFileItemReader<SngcMir> extends FlatFileItemReader<SngcMir> {
 	private boolean headerError = false;
 
 	protected void doOpen() throws Exception {
@@ -22,7 +22,7 @@ public class SngcFileItemReader<SngcMirTrim> extends FlatFileItemReader<SngcMirT
 		}
 	}
 
-	protected SngcMirTrim doRead() throws Exception {
+	protected SngcMir doRead() throws Exception {
 		if (headerError) {
 			return null;
 		}

@@ -3,6 +3,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
  
+ 	<!-- Config BD  -->
     <import resource="classpath:context-datasource.xml"/>
  
     <!-- JobRepository and JobLauncher are configuration/setup classes  -->
@@ -13,28 +14,63 @@
     </bean>
  
     <!-- ItemReader which reads data from XML file -->
-    <!-- <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" /> -->
-    <!-- <bean id="mirReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step"> -->
     <bean id="skippedLinesCallback" class="testYAR.testSpringBatch.SkippableItemReader" />
     <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" scope="step">
 	    <property name="resource" value="file:#{jobParameters['inputFileName']}" />
-	    <property name="lineMapper">
-	        <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
-	            <property name="lineTokenizer">
-	                <bean class="org.springframework.batch.item.file.transform.FixedLengthTokenizer">
-	                    <property name="names" value="typeEnregistrement, typeIdAssure, numSecuriteSociale, nomAssure, codeFonction, codeMaj, annee, codeNatureTrim, nombreUniteValide, codeRegimeValide, numOrganismeOrigineDeclarant, dateOrigineDeclaration, typeUnitesValidees, typeTitreEchange, codeReponse, numCotisantPartenaire, prenom, codeAnomalie" />
-	                    <property name="columns" value="1-3, 4-4, 5-17, 18-47, 48-51, 52-52, 53-56, 57-58, 59-60, 61-65, 66-69, 70-77, 78-78, 79-80, 92-92, 93-108, 109-118, 121-140" />
-	                </bean>
-	            </property>
-	            <property name="fieldSetMapper">
-	                <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-	                    <property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirTrim" />
-	                </bean>
-	            </property>
-	        </bean>
-	    </property>
+	    <property name="lineMapper" ref="patternMatchingMapper" />
 	    <property name="linesToSkip" value="1" />
 	    <property name="skippedLinesCallback" ref="skippedLinesCallback" />
+	</bean>
+	
+	<bean id="patternMatchingMapper" class="org.springframework.batch.item.file.mapping.PatternMatchingCompositeLineMapper">
+        <property name="tokenizers">
+            <map>
+                <entry key="MIR????????????????????????????????????????????TRIM*" value-ref="mirTrimFixedLengthTokenizer" />
+                <entry key="MIR????????????????????????????????????????????TRGL*" value-ref="mirTrglFixedLengthTokenizer" />
+               	<!-- <entry key="^(MIR)*" value-ref="nonMirFixedLengthTokenizer" /> -->
+                <!-- <entry key="^(MIR????????????????????????????????????????????(TRIM|TRGL)*)" value-ref="mirErrFixedLengthTokenizer" /> -->
+                <entry key="*" value-ref="nonMirFixedLengthTokenizer" />
+                <entry key="MIR*" value-ref="mirErrFixedLengthTokenizer" />
+            </map>
+        </property>
+        <property name="fieldSetMappers">
+            <map>
+                <entry key="MIR????????????????????????????????????????????TRIM*" value-ref="mirTrimMapper" />
+                <entry key="MIR????????????????????????????????????????????TRGL*" value-ref="mirTrglMapper" />
+                <entry key="*" value-ref="nonMirMapper" />
+                <entry key="MIR*" value-ref="mirErrMapper" />
+            </map>
+        </property>
+    </bean>
+	
+	<bean id="mirTrimFixedLengthTokenizer" class="org.springframework.batch.item.file.transform.FixedLengthTokenizer" >
+		<property name="names" value="typeEnregistrement, typeIdAssure, numSecuriteSociale, nomAssure, codeFonction, codeMaj, anneeValidite, codeNatureTrim, nombreUniteValide, codeRegimeValide, numOrganismeOrigineDeclarant, dateOrigineDeclaration, typeUnitesValidees, typeTitreEchange, codeReponse, numCotisantPartenaire, prenom, codeAnomalie, ligneTotal" />
+		<property name="columns" value="1-3, 4-4, 5-17, 18-47, 48-51, 52-52, 53-56, 57-58, 59-60, 61-65, 66-69, 70-77, 78-78, 79-80, 92-92, 93-108, 109-118, 121-140, 1-140" />
+	</bean>
+	<bean id="mirTrglFixedLengthTokenizer" class="org.springframework.batch.item.file.transform.FixedLengthTokenizer"  >
+		<property name="names" value="typeEnregistrement, typeIdAssure, numSecuriteSociale, nomAssure, codeFonction, codeMaj, codeNatureTrim, nombreUniteValide, codeRegimeValide, numOrganismeOrigineDeclarant, dateOrigineDeclaration, typeUnitesValidees, typeTitreEchange, codeReponse, numCotisantPartenaire, prenom, codeAnomalie, ligneTotal" />
+		<property name="columns" value="1-3, 4-4, 5-17, 18-47, 48-51, 52-52, 53-54, 55-56, 57-61, 62-65, 66-73, 74-74, 75-76, 92-92, 93-108, 109-118, 121-140, 1-140" />
+	</bean>
+	<bean id="nonMirFixedLengthTokenizer" class="org.springframework.batch.item.file.transform.FixedLengthTokenizer"  >
+		<property name="names" value="ligneTotal" />
+		<property name="columns" value="1-140" />
+	</bean>
+	<bean id="mirErrFixedLengthTokenizer" class="org.springframework.batch.item.file.transform.FixedLengthTokenizer"  >
+		<property name="names" value="ligneTotal" />
+		<property name="columns" value="1-140" />
+	</bean>
+
+	<bean id="mirTrimMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
+		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirTrim" />
+	</bean>
+	<bean id="mirTrglMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
+		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirTrgl" />
+	</bean>
+	<bean id="nonMirMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
+		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcNonMir" />
+	</bean>
+	<bean id="mirErrMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
+		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirErr" />
 	</bean>
  
     <!-- ItemWriter which writes data to database -->
