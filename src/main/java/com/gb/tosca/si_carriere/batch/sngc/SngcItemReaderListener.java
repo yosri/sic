@@ -27,9 +27,9 @@ public class SngcItemReaderListener implements ItemReadListener<Sngc> {
 	@Override
 	public void onReadError(Exception ex) {
 		if (ex instanceof FlatFileParseException) {
+			// Est appelé si : la ligne ne fait pas 140 caracteres (moin ou plus)
 			System.err.println("FlatFileParseException : " + ((FlatFileParseException) ex).getInput());
-			Constantes.KOlog.info(Constantes.ERR_LONG_ENR + "\n" + ((FlatFileParseException) ex).getInput());
-			throw new RuntimeException();
+			Constantes.KOlog.info(Constantes.ERR_LONG_ENR + " : " + ((FlatFileParseException) ex).getInput());
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.gb.tosca.si_carriere.batch.sngc;
 
 import org.springframework.batch.item.file.LineCallbackHandler;
 
+import com.gb.tosca.si_carriere.batch.sngc.exception.HeaderErrorException;
 import com.gb.tosca.si_carriere.batch.sngc.validateur.EnteteFichierSngcValidateur;
 
 /**
@@ -14,6 +15,8 @@ public class SkippableItemReader implements LineCallbackHandler {
 
 	@Override
 	public void handleLine(String line) {
-		EnteteFichierSngcValidateur.valider(line);
+		if (!EnteteFichierSngcValidateur.estValide(line)) {
+			throw new HeaderErrorException();
+		}
 	}
 }

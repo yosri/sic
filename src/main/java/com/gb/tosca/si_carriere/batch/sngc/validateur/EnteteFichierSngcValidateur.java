@@ -2,7 +2,6 @@ package com.gb.tosca.si_carriere.batch.sngc.validateur;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.gb.tosca.si_carriere.batch.sngc.exception.HeaderErrorException;
 import com.gb.tosca.si_carriere.common.Constantes;
 
 /**
@@ -26,22 +25,28 @@ public class EnteteFichierSngcValidateur {
 	private final static int NB_ENR_INDEX_DEBUT = 33;
 	private final static int NB_ENR_INDEX_FIN = 42;
 
-	public static void valider(String ligne) {
+	public static boolean estValide(String ligne) {
 		// verifier longueur
 		if (ligne.length() != Constantes.LONGUER_LIGNE_SNGC) {
-			throw new HeaderErrorException(Constantes.ERR_LONG_ENR + "\n" + ligne);
+			Constantes.KOlog.info(Constantes.ERR_LONG_ENR + " : " + ligne);
+			return false;
 		}
+
 		if (!estNum(ligne.substring(NUM_ENV_INDEX_DEBUT, NUM_ENV_INDEX_FIN)) || !estNum(ligne.substring(DT_CRE_INDEX_DEBUT, DT_CRE_INDEX_FIN))
 				|| !estNum(ligne.substring(NB_ENR_INDEX_DEBUT, NB_ENR_INDEX_FIN))) {
-			throw new HeaderErrorException(Constantes.ERR_FORMAT_ENG + "\n" + ligne);
+			Constantes.KOlog.info(Constantes.ERR_FORMAT_ENG + " : " + ligne);
+			return false;
 		}
 
 		// verfier infos
 		String tyTrait = ligne.substring(TY_TRAIT_INDEX_DEBUT, TY_TRAIT_INDEX_FIN);
-		boolean valid = (ligne.indexOf(TY_ENR) == 0 && (TY_TRAIT_R.equals(tyTrait) || TY_TRAIT_T.equals(tyTrait)));
-		if (!valid) {
-			throw new HeaderErrorException(Constantes.ERR_FORMAT_ENG + "\n" + ligne);
+		if (!(ligne.indexOf(TY_ENR) == 0 && (TY_TRAIT_R.equals(tyTrait) || TY_TRAIT_T.equals(tyTrait)))) {
+			Constantes.KOlog.info(Constantes.ERR_FORMAT_ENG + " : " + ligne);
+			return false;
 		}
+
+		Constantes.OKlog.info("OK " + ligne);
+		return true;
 	}
 
 	private static boolean estNum(String string) {

@@ -15,7 +15,7 @@ public class Sngc {
 	private String codeMaj;
 	private String codeNatureTrim;
 	private String nombreUniteValide;
-	private String codeRegimeValide;
+	private String codeRegime;
 	private String numOrganismeOrigineDeclarant;
 	private String dateOrigineDeclaration;
 	private String typeUnitesValidees;
@@ -90,14 +90,6 @@ public class Sngc {
 		this.nombreUniteValide = nombreUniteValide;
 	}
 
-	public String getCodeRegimeValide() {
-		return codeRegimeValide;
-	}
-
-	public void setCodeRegimeValide(String codeRegimeValide) {
-		this.codeRegimeValide = codeRegimeValide;
-	}
-
 	public String getNumOrganismeOrigineDeclarant() {
 		return numOrganismeOrigineDeclarant;
 	}
@@ -168,5 +160,13 @@ public class Sngc {
 
 	public void setLigneTotal(String ligneTotal) {
 		this.ligneTotal = ligneTotal;
+	}
+
+	public String getCodeRegime() {
+		return codeRegime;
+	}
+
+	public void setCodeRegime(String codeRegime) {
+		this.codeRegime = codeRegime;
 	}
 }

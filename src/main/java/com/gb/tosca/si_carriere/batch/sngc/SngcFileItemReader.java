@@ -11,7 +11,7 @@ import com.gb.tosca.si_carriere.batch.sngc.exception.HeaderErrorException;
  *
  * @param <SngcMirTrim>
  */
-public class SngcFileItemReader<SngcMir> extends FlatFileItemReader<SngcMir> {
+public class SngcFileItemReader<Sngc> extends FlatFileItemReader<Sngc> {
 	private boolean headerError = false;
 
 	protected void doOpen() throws Exception {
@@ -22,7 +22,7 @@ public class SngcFileItemReader<SngcMir> extends FlatFileItemReader<SngcMir> {
 		}
 	}
 
-	protected SngcMir doRead() throws Exception {
+	protected Sngc doRead() throws Exception {
 		if (headerError) {
 			return null;
 		}
