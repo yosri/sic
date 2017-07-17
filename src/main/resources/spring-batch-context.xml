@@ -14,8 +14,8 @@
     </bean>
  
     <!-- ItemReader which reads data from XML file -->
-    <bean id="skippedLinesCallback" class="testYAR.testSpringBatch.SkippableItemReader" />
-    <bean id="mirReader" class="testYAR.testSpringBatch.SngcFileItemReader" scope="step">
+    <bean id="skippedLinesCallback" class="com.gb.tosca.si_carriere.batch.sngc.SkippableItemReader" />
+    <bean id="mirReader" class="com.gb.tosca.si_carriere.batch.sngc.SngcFileItemReader" scope="step">
 	    <property name="resource" value="file:#{jobParameters['inputFileName']}" />
 	    <property name="lineMapper" ref="patternMatchingMapper" />
 	    <property name="linesToSkip" value="1" />
@@ -59,20 +59,20 @@
 	</bean>
 
 	<bean id="mirTrimMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
-		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirTrim" />
+		<property name="targetType" value="com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcMirTrim" />
 	</bean>
 	<bean id="mirTrglMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
-		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirTrgl" />
+		<property name="targetType" value="com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcMirTrgl" />
 	</bean>
 	<bean id="mirErrMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
-		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcMirErr" />
+		<property name="targetType" value="com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcMirErr" />
 	</bean>
 	<bean id="nonMirMapper" class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper" >
-		<property name="targetType" value="testYAR.testSpringBatch.model.sngc.SngcNonMir" />
+		<property name="targetType" value="com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcNonMir" />
 	</bean>
  
     <!-- ItemWriter which writes data to database -->
-    <bean id="mirJdbcWriter" class="testYAR.testSpringBatch.MirJdbcWriter" >
+    <bean id="mirJdbcWriter" class="com.gb.tosca.si_carriere.batch.sngc.JdbcWriter" >
 	    <property name="jdbcTemplate" ref="idJdbcTemplate" />
 	</bean>
 	<bean id="idJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
@@ -80,7 +80,7 @@
 	</bean>
  
     <!-- Optional ItemProcessor to perform business logic/filtering on the input records -->
-    <bean id="mirProcessor" class="testYAR.testSpringBatch.MirProcessor" />
+    <bean id="mirProcessor" class="com.gb.tosca.si_carriere.batch.sngc.Processor" />
  
     <!-- Optional JobExecutionListener to perform business logic before and after the job -->
     <!-- <bean id="jobListener" class="com.websystique.springbatch.ExamResultJobListener" /> -->
@@ -88,7 +88,7 @@
     <!-- Step will need a transaction manager -->
     <bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
  
- 	<bean id="readerlistner" class="testYAR.testSpringBatch.SngcItemReaderListener" />
+ 	<bean id="readerlistner" class="com.gb.tosca.si_carriere.batch.sngc.SngcItemReaderListener" />
     <!-- Actual Job -->
     <job id="importMir" xmlns="http://www.springframework.org/schema/batch">
 	    <step id="readWriteMir">
