@@ -1,5 +1,7 @@
 package testYAR.testSpringBatch.exception;
 
+import common.Constantes;
+
 /**
  * Exception lecture entete fichier SNGC
  * 
@@ -9,5 +11,9 @@ package testYAR.testSpringBatch.exception;
 public class HeaderErrorException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
+
+	public HeaderErrorException(String ex) {
+		Constantes.KOlog.info(ex);
+	}
 
 }

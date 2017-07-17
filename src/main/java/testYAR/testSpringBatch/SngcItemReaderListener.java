@@ -27,7 +27,9 @@ public class SngcItemReaderListener implements ItemReadListener<Sngc> {
 	@Override
 	public void onReadError(Exception ex) {
 		if (ex instanceof FlatFileParseException) {
-			Constantes.KOlog.info("Erreur à la ligne : " + ((FlatFileParseException) ex).getInput());
+			System.err.println("FlatFileParseException : " + ((FlatFileParseException) ex).getInput());
+			Constantes.KOlog.info(Constantes.ERR_LONG_ENR + "\n" + ((FlatFileParseException) ex).getInput());
+			throw new RuntimeException();
 		}
 	}
 }
