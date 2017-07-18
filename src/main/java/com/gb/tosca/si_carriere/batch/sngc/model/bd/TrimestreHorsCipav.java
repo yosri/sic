@@ -20,6 +20,9 @@ public class TrimestreHorsCipav {
 	private String organismeDeclarant;
 	private Calendar dateDeclaration;
 	private String ligneTotal;
+	private Calendar dateEnregistrement;
+	private String origine;
+	private String typeTitreEchange;
 
 	public String getNumCarriere() {
 		return numCarriere;
@@ -107,5 +110,29 @@ public class TrimestreHorsCipav {
 
 	public void setLigneTotal(String ligneTotal) {
 		this.ligneTotal = ligneTotal;
+	}
+
+	public Calendar getDateEnregistrement() {
+		return dateEnregistrement;
+	}
+
+	public void setDateEnregistrement(Calendar dateEnregistrement) {
+		this.dateEnregistrement = dateEnregistrement;
+	}
+
+	public String getOrigine() {
+		return origine;
+	}
+
+	public void setOrigine(String origine) {
+		this.origine = origine;
+	}
+
+	public String getTypeTitreEchange() {
+		return typeTitreEchange;
+	}
+
+	public void setTypeTitreEchange(String typeTitreEchange) {
+		this.typeTitreEchange = typeTitreEchange;
 	}
 }

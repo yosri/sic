@@ -1,5 +1,6 @@
 package com.gb.tosca.si_carriere.batch.sngc;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 import org.springframework.batch.item.ItemProcessor;
@@ -60,16 +61,14 @@ public class Processor implements ItemProcessor<Sngc, TrimestreHorsCipav> {
 
 				// 2. Le traitement alimente la base de données avec les nouvelles données de trimestres hors CIPAV pour l’adhérent concerné
 
-				trimestreHorsCipav = new TrimestreHorsCipav();
-				if (sngc instanceof SngcMirTrim) {
-					trimestreHorsCipav.setAnnee(Integer.parseInt(((SngcMirTrim) sngc).getAnneeValidite()));
-				}
-				// TODO [YAR] ...
-				trimestreHorsCipav.setNumCarriere(sngc.getTypeEnregistrement());
-				trimestreHorsCipav.setNatureHorsCipav(sngc.getNumSecuriteSociale());
-				trimestreHorsCipav.setRegimeExterne(sngc.getCodeFonction());
-				trimestreHorsCipav.setLigneTotal(sngc.getLigneTotal());
+				trimestreHorsCipav = getTrimestreHorsCipav(sngc);
 			}
+
+			// trimestreHorsCipav = new TrimestreHorsCipav();
+			// trimestreHorsCipav.setNumCarriere(sngc.getTypeEnregistrement());
+			// trimestreHorsCipav.setNatureHorsCipav(sngc.getNumSecuriteSociale());
+			// trimestreHorsCipav.setRegimeExterne(sngc.getCodeFonction());
+			// trimestreHorsCipav.setLigneTotal(sngc.getLigneTotal());
 		} else if (sngc instanceof SngcMirErr) {
 			System.err.println("SngcMirErr : " + sngc.getLigneTotal());
 			Constantes.KOlog.info(Constantes.ERR_NE_CONCERNE_DROIT + " : " + sngc.getLigneTotal());
@@ -105,5 +104,47 @@ public class Processor implements ItemProcessor<Sngc, TrimestreHorsCipav> {
 		// - Modification du WS-ADH-02 – Récupération des données adhérent complètes (prévue dans la propale)
 
 		return Calendar.getInstance();
+	}
+
+	private Calendar getDate(String date) {
+		Calendar cal = null;
+		try {
+			cal = Calendar.getInstance();
+			cal.setTime(Constantes.SNGC_DATE_FORMAT.parse(date));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+		}
+		return cal;
+	}
+
+	private TrimestreHorsCipav getTrimestreHorsCipav(Sngc sngc) {
+		TrimestreHorsCipav trimestreHorsCipav = new TrimestreHorsCipav();
+		if (sngc instanceof SngcMirTrim) {
+			trimestreHorsCipav.setAnnee(Integer.parseInt(((SngcMirTrim) sngc).getAnneeValidite()));
+		}
+		// TODO [YAR] : // lien table de référence ?
+		trimestreHorsCipav.setNatureHorsCipav(sngc.getCodeNatureTrim()); // lien table de référence ?
+		trimestreHorsCipav.setRegimeExterne(sngc.getCodeRegime()); // lien table de référence ?
+		if (Constantes.TY_ECH_29.equals(sngc.getTypeTitreEchange()) || Constantes.TY_ECH_49.equals(sngc.getTypeTitreEchange())) {
+			trimestreHorsCipav.setTypeTrimestre("Trimestre assimilé"); // lien table de référence ?
+		} else if (Constantes.TY_ECH_69.equals(sngc.getTypeTitreEchange())) {
+			trimestreHorsCipav.setTypeTrimestre("Trimestre cotisé"); // lien table de référence ?
+		}
+		trimestreHorsCipav.setNombreTrimestre(Integer.parseInt(sngc.getNombreUniteValide()));
+		trimestreHorsCipav.setTypeTitreEchange(sngc.getTypeTitreEchange());
+		if (Constantes.TY_ECH_29.equals(sngc.getTypeTitreEchange()) || Constantes.TY_ECH_69.equals(sngc.getTypeTitreEchange())) {
+			trimestreHorsCipav.setPriseCompteCalculDuree(true);
+		} else if (Constantes.TY_ECH_49.equals(sngc.getTypeTitreEchange())) {
+			trimestreHorsCipav.setPriseCompteCalculDuree(false);
+		}
+		if (Constantes.TY_ECH_69.equals(sngc.getTypeTitreEchange())) {
+			trimestreHorsCipav.setPriseCompteCalculDepartAnticipe(true);
+		} else if (Constantes.TY_ECH_29.equals(sngc.getTypeTitreEchange()) || Constantes.TY_ECH_49.equals(sngc.getTypeTitreEchange())) {
+			trimestreHorsCipav.setPriseCompteCalculDepartAnticipe(false);
+		}
+		trimestreHorsCipav.setOrganismeDeclarant(sngc.getNumOrganismeOrigineDeclarant()); // lien table de référence ?
+		trimestreHorsCipav.setDateDeclaration(getDate(sngc.getDateOrigineDeclaration()));
+		trimestreHorsCipav.setDateEnregistrement(Calendar.getInstance());
+		return trimestreHorsCipav;
 	}
 }

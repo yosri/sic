@@ -96,7 +96,7 @@
 			    <listeners>
 					<listener ref="readerlistner" />
 				</listeners>
-	            <chunk reader="mirReader" writer="mirJdbcWriter" processor="mirProcessor" commit-interval="10" skip-limit="100000000">
+	            <chunk reader="mirReader" writer="mirJdbcWriter" processor="mirProcessor" commit-interval="800" skip-limit="100000000">
 		            <skippable-exception-classes>
 			            <batch:include class="org.springframework.batch.item.file.FlatFileParseException"/>
 			        </skippable-exception-classes>

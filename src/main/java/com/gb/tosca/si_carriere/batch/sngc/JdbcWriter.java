@@ -24,10 +24,14 @@ public class JdbcWriter implements ItemWriter<TrimestreHorsCipav> {
 
 	public void write(List<? extends TrimestreHorsCipav> items) throws Exception {
 		for (TrimestreHorsCipav trimestre : items) {
-			final Object object[] = { trimestre.getNumCarriere(), trimestre.getAnnee(), trimestre.getNatureHorsCipav(), trimestre.getRegimeExterne(), trimestre.getTypeTrimestre(),
-					trimestre.getNombreTrimestre(), trimestre.getOrganismeDeclarant(), trimestre.getDateDeclaration() };
-			jdbcTemplate.update(REQUEST_INSERT, object);
-			Constantes.OKlog.info(trimestre.getLigneTotal());
+			try {
+				final Object object[] = { trimestre.getNumCarriere(), trimestre.getAnnee(), trimestre.getNatureHorsCipav(), trimestre.getRegimeExterne(),
+						trimestre.getTypeTrimestre(), trimestre.getNombreTrimestre(), trimestre.getOrganismeDeclarant(), trimestre.getDateDeclaration() };
+				jdbcTemplate.update(REQUEST_INSERT, object);
+				Constantes.OKlog.info(trimestre.getLigneTotal());
+			} catch (Exception e) {
+				Constantes.KOlog.info(Constantes.ERR_BD + " : " + trimestre.getLigneTotal());
+			}
 		}
 	}
 
