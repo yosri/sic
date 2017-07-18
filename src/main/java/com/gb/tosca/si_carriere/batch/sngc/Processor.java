@@ -14,8 +14,8 @@ import com.gb.tosca.si_carriere.batch.sngc.validateur.DateLiquidationCERValidate
 import com.gb.tosca.si_carriere.batch.sngc.validateur.DateLiquidationRBValidateur;
 import com.gb.tosca.si_carriere.batch.sngc.validateur.MirValidateur;
 import com.gb.tosca.si_carriere.common.Constantes;
-import com.gb.tosca.si_carriere.testWebService.client.RamWSRest;
-import com.gb.tosca.si_carriere.testWebService.model.ram.Adherent;
+import com.gb.tosca.si_carriere.model.ram.Adherent;
+import com.gb.tosca.si_carriere.ws.client.RamWSRest;
 
 /**
  * Le Processor

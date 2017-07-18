@@ -1,4 +1,4 @@
-package com.gb.tosca.si_carriere.testWebService.client;
+package com.gb.tosca.si_carriere.ws.client;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gb.tosca.si_carriere.testWebService.model.ram.Adherent;
+import com.gb.tosca.si_carriere.model.ram.Adherent;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

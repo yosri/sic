@@ -1,4 +1,4 @@
-package com.gb.tosca.si_carriere.testWebService.model.ram;
+package com.gb.tosca.si_carriere.model.ram;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

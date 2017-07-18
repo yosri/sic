@@ -1,4 +1,4 @@
-package com.gb.tosca.si_carriere.controller;
+package com.gb.tosca.si_carriere.ws.server;
 
 import java.util.logging.Logger;
 
