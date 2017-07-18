@@ -24,6 +24,9 @@ public class SngcItemReaderListener implements ItemReadListener<Sngc> {
 		// Vide
 	}
 
+	/**
+	 * US01-04-1 Contrôler l’intégrité d’une ligne du fichier SNGC retour de type autre que DDF : longueur de l’enregistrement est égale à 140
+	 */
 	@Override
 	public void onReadError(Exception ex) {
 		if (ex instanceof FlatFileParseException) {

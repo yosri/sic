@@ -50,8 +50,8 @@ public class Processor implements ItemProcessor<Sngc, TrimestreHorsCipav> {
 			}
 
 			if (MirValidateur.estValide(sngc) && estAdherentValide(adherent, sngc) && !Constantes.CD_REGI_CIPAV.equals(sngc.getCodeRegime())
-					&& DateLiquidationCERValidateur.estValide(getDateLiquidationCER(adherent), sngc)
-					&& DateLiquidationRBValidateur.estValide(getDateLiquidationRB(adherent), sngc)) {
+					&& DateLiquidationCERValidateur.estValide(RamWSRest.getDateLiquidationCER(adherent), sngc)
+					&& DateLiquidationRBValidateur.estValide(RamWSRest.getDateLiquidationRB(adherent), sngc)) {
 
 				// SngcMirTrim ou SngcMirTrgl valide
 
@@ -87,23 +87,6 @@ public class Processor implements ItemProcessor<Sngc, TrimestreHorsCipav> {
 			return false;
 		}
 		return true;
-	}
-
-	private Calendar getDateLiquidationCER(Adherent adherent) {
-		// TODO [YAR] : Il s’agit d’une donnée Carrière dont RAM est maître.
-		// Conception à voir pour récupérer cette données dans RAM ou SI Carrière (attention à l’architecture)
-
-		return Calendar.getInstance();
-	}
-
-	private Calendar getDateLiquidationRB(Adherent adherent) {
-		// TODO [YAR] : Il s’agit d’une donnée LAO dont RAM est maître.
-		// Cette donnée doit donc être récupérée via un Web Service exposé par LAO (qui va lui-même chercher la données dans RAM)
-		// Mais ce web service n’étant pas encore dispobible 2 solutions :
-		// - Un WS mocké
-		// - Modification du WS-ADH-02 – Récupération des données adhérent complètes (prévue dans la propale)
-
-		return Calendar.getInstance();
 	}
 
 	private Calendar getDate(String date) {

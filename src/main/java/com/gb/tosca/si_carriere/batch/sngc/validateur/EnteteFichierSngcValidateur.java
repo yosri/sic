@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.gb.tosca.si_carriere.common.Constantes;
 
 /**
- * Validateur Entete Fichier Sngc
+ * Validateur Entete Fichier Sngc : US01-03
  * 
  * @author yarrami
  *
@@ -25,6 +25,12 @@ public class EnteteFichierSngcValidateur {
 	private final static int NB_ENR_INDEX_DEBUT = 33;
 	private final static int NB_ENR_INDEX_FIN = 42;
 
+	/**
+	 * US01-03 Traiter la première ligne du fichier SNGC retour
+	 * 
+	 * @param ligne
+	 * @return
+	 */
 	public static boolean estValide(String ligne) {
 		// verifier longueur
 		if (ligne.length() != Constantes.LONGUER_LIGNE_SNGC) {
