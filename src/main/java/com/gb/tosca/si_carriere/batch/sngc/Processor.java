@@ -11,8 +11,8 @@ import com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcMirErr;
 import com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcMirTrgl;
 import com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcMirTrim;
 import com.gb.tosca.si_carriere.batch.sngc.model.sngc.SngcNonMir;
-import com.gb.tosca.si_carriere.batch.sngc.validateur.DateLiquidationCERValidateur;
-import com.gb.tosca.si_carriere.batch.sngc.validateur.DateLiquidationRBValidateur;
+import com.gb.tosca.si_carriere.batch.sngc.validateur.DateLiquidationCerValidateur;
+import com.gb.tosca.si_carriere.batch.sngc.validateur.DateLiquidationRbValidateur;
 import com.gb.tosca.si_carriere.batch.sngc.validateur.MirValidateur;
 import com.gb.tosca.si_carriere.common.Constantes;
 import com.gb.tosca.si_carriere.model.ram.Adherent;
@@ -50,8 +50,8 @@ public class Processor implements ItemProcessor<Sngc, TrimestreHorsCipav> {
 			}
 
 			if (MirValidateur.estValide(sngc) && estAdherentValide(adherent, sngc) && !Constantes.CD_REGI_CIPAV.equals(sngc.getCodeRegime())
-					&& DateLiquidationCERValidateur.estValide(RamWSRest.getDateLiquidationCER(adherent), sngc)
-					&& DateLiquidationRBValidateur.estValide(RamWSRest.getDateLiquidationRB(adherent), sngc)) {
+					&& DateLiquidationCerValidateur.estValide(RamWSRest.getDateLiquidationCER(adherent), sngc)
+					&& DateLiquidationRbValidateur.estValide(RamWSRest.getDateLiquidationRB(adherent), sngc)) {
 
 				// SngcMirTrim ou SngcMirTrgl valide
 

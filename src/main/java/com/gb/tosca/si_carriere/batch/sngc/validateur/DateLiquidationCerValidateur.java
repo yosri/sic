@@ -12,14 +12,14 @@ import com.gb.tosca.si_carriere.common.Constantes;
  * @author yarrami
  *
  */
-public class DateLiquidationRBValidateur extends DateLiquidationValidateur {
+public class DateLiquidationCerValidateur extends DateLiquidationValidateur {
 
-	public static boolean estValide(Calendar dateLiquidationRb, Sngc sngc) {
+	public static boolean estValide(Calendar dateLiquidationCer, Sngc sngc) {
 		if (sngc instanceof SngcMirTrim) {
 			SngcMirTrim sngcMirTrim = (SngcMirTrim) sngc;
 			int daVal = Integer.parseInt(sngcMirTrim.getAnneeValidite());
-			if (DateLiquidationValidateur.estValide(dateLiquidationRb, sngcMirTrim)) {
-				if (dateLiquidationRb.get(Calendar.YEAR) < Constantes.ANNEE_LIMIT_DATE_LIQUIDATION && daVal >= dateLiquidationRb.get(Calendar.YEAR)) {
+			if (DateLiquidationValidateur.estValide(dateLiquidationCer, sngcMirTrim)) {
+				if (dateLiquidationCer.get(Calendar.YEAR) < Constantes.ANNEE_LIMIT_DATE_LIQUIDATION && daVal >= Constantes.ANNEE_LIMIT_DATE_LIQUIDATION) {
 					Constantes.KOlog.info(Constantes.ERR_DATE_LIQUIDATION + " : " + sngcMirTrim.getLigneTotal());
 					return false;
 				}

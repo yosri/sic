@@ -9,7 +9,7 @@ import com.gb.tosca.si_carriere.batch.sngc.exception.HeaderErrorException;
  * 
  * @author yarrami
  *
- * @param <SngcMirTrim>
+ * @param <Sngc>
  */
 public class SngcFileItemReader<Sngc> extends FlatFileItemReader<Sngc> {
 	private boolean headerError = false;
